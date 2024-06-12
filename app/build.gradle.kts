@@ -56,4 +56,8 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
     implementation(libs.fragment.ktx)
     implementation(libs.androidx.navigation.fragment)
+    implementation(libs.androidx.viewpager2)
+    implementation(libs.flycoTabLayout)
+    implementation(libs.material)
+    implementation(libs.eventbus)
 }

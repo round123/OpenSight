@@ -12,4 +12,6 @@
     <color name="exo_bottom_bar_background">#b0000000</color>
     <color name="design_bottom_navigation_shadow_color">#14000000</color>
     <color name="grayDark">#adadad</color>
+    <color name="transparent">#00000000</color>
+    <color name="gray">#ededed</color>
 </resources>

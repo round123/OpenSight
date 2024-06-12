@@ -13,12 +13,16 @@ room_version = "2.6.1"
 paging_version = "3.3.0"
 constraintlayoutVersion = "2.1.4"
 navigationFragmentVersion = "2.7.7"
+viewpager2Version = "1.1.0"
+flycoTabLayoutVersion = "3.0.0"
+materialVersion = "1.12.0"
+eventbusVersion = "3.3.1"
 [libraries]
 #Android KTX
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 fragment-ktx = { group = "androidx.fragment", name = "fragment-ktx", version.ref = "fragment_version" }
-activity-ktx = { group= "androidx.activity",name = "activity-ktx", version.ref = "activity_version" }
-androidx-appcompat = { group = "androidx.appcompat", name="appcompat" , version.ref = "appcompat_version"}
+activity-ktx = { group = "androidx.activity", name = "activity-ktx", version.ref = "activity_version" }
+androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat_version" }
 #lifecycle
 androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycle_version" }
 lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycle_version" }
@@ -39,7 +43,10 @@ androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "j
 
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayoutVersion" }
 androidx-navigation-fragment = { group = "androidx.navigation", name = "navigation-fragment", version.ref = "navigationFragmentVersion" }
-
+androidx-viewpager2 = { group = "androidx.viewpager2", name = "viewpager2", version.ref = "viewpager2Version" }
+flycoTabLayout = { group = "io.github.h07000223", name = "flycoTabLayout", version.ref = "flycoTabLayoutVersion" }
+material = { group = "com.google.android.material", name = "material", version.ref = "materialVersion" }
+eventbus = { group = "org.greenrobot", name = "eventbus", version.ref = "eventbusVersion" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

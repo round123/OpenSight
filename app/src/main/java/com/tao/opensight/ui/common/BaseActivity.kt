@@ -23,8 +23,6 @@ abstract class BaseActivity : ComponentActivity()
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
-        setContentView(getLayoutId())
-        setupViews()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -69,7 +67,4 @@ abstract class BaseActivity : ComponentActivity()
         logD(TAG, "BaseActivity-->onStop()")
     }
 
-    abstract fun setupViews()
-
-    abstract fun getLayoutId():Int
 }

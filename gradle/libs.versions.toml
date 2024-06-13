@@ -17,6 +17,7 @@ viewpager2Version = "1.1.0"
 flycoTabLayoutVersion = "3.0.0"
 materialVersion = "1.12.0"
 eventbusVersion = "3.3.1"
+glideVersion="4.16.0"
 [libraries]
 #Android KTX
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -47,7 +48,7 @@ androidx-viewpager2 = { group = "androidx.viewpager2", name = "viewpager2", vers
 flycoTabLayout = { group = "io.github.h07000223", name = "flycoTabLayout", version.ref = "flycoTabLayoutVersion" }
 material = { group = "com.google.android.material", name = "material", version.ref = "materialVersion" }
 eventbus = { group = "org.greenrobot", name = "eventbus", version.ref = "eventbusVersion" }
-
+glide={group="com.github.bumptech.glide",name="glide",version.ref="glideVersion"}
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }

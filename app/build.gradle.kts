@@ -60,4 +60,5 @@ dependencies {
     implementation(libs.flycoTabLayout)
     implementation(libs.material)
     implementation(libs.eventbus)
+    implementation(libs.glide)
 }

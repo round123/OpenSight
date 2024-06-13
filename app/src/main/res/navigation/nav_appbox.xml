@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_appbox"
+    app:startDestination="@id/homeFragment">
+    <!--    首页-->
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.tao.opensight.ui.home.HomeFragment"
+        android:label="home fragment"
+        tools:layout="@layout/fragment_home" />
+    <!--    广场-->
+    <fragment
+        android:id="@+id/squareFragment"
+        android:name="com.tao.opensight.ui.square.SquareFragment"
+        android:label="square fragment"
+        tools:layout="@layout/fragment_square"/>
+    <!--    发现-->
+    <fragment
+        android:id="@+id/discoverFragment"
+        android:name="com.tao.opensight.ui.discovery.DiscoveryFragment"
+        android:label="discovery fragment"
+        tools:layout="@layout/fragment_discovery"/>
+    <!--    我的-->
+    <fragment
+        android:id="@+id/mineFragment"
+        android:name="com.tao.opensight.ui.mine.MineFragment"
+        android:label="mine fragment"
+        tools:layout="@layout/fragment_mine"/>
+
+</navigation>

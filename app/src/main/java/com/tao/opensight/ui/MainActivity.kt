@@ -8,7 +8,7 @@ class MainActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.layout_appbox)
+        setContentView(R.layout.layout_mainactivity)
     }
 
 }

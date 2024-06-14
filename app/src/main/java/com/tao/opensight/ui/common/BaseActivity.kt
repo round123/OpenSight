@@ -5,10 +5,11 @@ import android.os.Bundle
 import android.os.PersistableBundle
 import androidx.activity.ComponentActivity
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AppCompatActivity
 import com.tao.opensight.ext.logD
 
 
-abstract class BaseActivity : ComponentActivity()
+abstract class BaseActivity : AppCompatActivity()
 {
     /**
      * 判断当前Activity是否在前台。

@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="colorPrimary">#fafafa</color>
+    <color name="colorPrimaryDark">#fafafa</color>
+    <color name="colorAccent">#61f2d4</color>
+    <color name="colorTextPrimary">#444444</color>
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>
@@ -7,7 +11,6 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFF</color>
-    <color name="colorPrimary">#fafafa</color>
     <color name="color_bottom_bar_background">#ff222b48</color>
     <color name="exo_bottom_bar_background">#b0000000</color>
     <color name="design_bottom_navigation_shadow_color">#14000000</color>

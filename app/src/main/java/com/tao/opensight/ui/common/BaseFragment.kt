@@ -7,13 +7,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.viewbinding.ViewBinding
+import com.tao.opensight.ext.hideStatusBar
 import com.tao.opensight.ext.logD
 
 /**
  * 应用程序中所有Fragment的基类。
  *
  */
-abstract class BaseFragment : Fragment() {
+abstract class BaseFragment<VB:ViewBinding> : Fragment() {
 
     /**
      * 是否已经加载过数据
@@ -29,6 +31,9 @@ abstract class BaseFragment : Fragment() {
      * 日志输出标志
      */
     protected val TAG: String = this.javaClass.simpleName
+
+    protected lateinit var mBinding: VB
+    protected abstract fun initViewBinding(): VB
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -48,7 +53,9 @@ abstract class BaseFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         logD(TAG, "BaseFragment-->onCreateView()")
-        return super.onCreateView(inflater, container, savedInstanceState)
+        mBinding = initViewBinding()
+        mBinding.root.hideStatusBar()
+        return mBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

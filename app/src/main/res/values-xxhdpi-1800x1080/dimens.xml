@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="recommend_bottom_bar_height">100.0dip</dimen>
+    <dimen name="recommend_item_card_cover_height">320.0dip</dimen>
+    <dimen name="recommend_item_card_description_margin">10.0dip</dimen>
+    <dimen name="recommend_item_card_height">400.0dip</dimen>
+</resources>

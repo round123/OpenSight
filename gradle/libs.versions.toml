@@ -18,6 +18,7 @@ flycoTabLayoutVersion = "3.0.0"
 materialVersion = "1.12.0"
 eventbusVersion = "3.3.1"
 glideVersion="4.16.0"
+lifecycleCommonJvmVersion = "2.8.2"
 [libraries]
 #Android KTX
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -49,6 +50,7 @@ flycoTabLayout = { group = "io.github.h07000223", name = "flycoTabLayout", versi
 material = { group = "com.google.android.material", name = "material", version.ref = "materialVersion" }
 eventbus = { group = "org.greenrobot", name = "eventbus", version.ref = "eventbusVersion" }
 glide={group="com.github.bumptech.glide",name="glide",version.ref="glideVersion"}
+androidx-lifecycle-common-jvm = { group = "androidx.lifecycle", name = "lifecycle-common-jvm", version.ref = "lifecycleCommonJvmVersion" }
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }

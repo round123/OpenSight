@@ -1,6 +1,13 @@
 package com.tao.opensight.ext
 
 import android.view.View
+import android.view.ViewGroup.MarginLayoutParams
+import androidx.core.graphics.Insets
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updateLayoutParams
+import androidx.core.view.updatePadding
+
 
 /**
  * 扩展函数，用于简化点击事件的设置。
@@ -28,4 +35,13 @@ fun setOnClickListener(vararg v: View?, block: View.() -> Unit) {
  */
 fun setOnClickListener(vararg v: View?, listener: View.OnClickListener) {
     v.forEach { it?.setOnClickListener(listener) }
+}
+
+fun View.hideStatusBar() {
+    ViewCompat.setOnApplyWindowInsetsListener(this) { v: View, windowInsets: WindowInsetsCompat ->
+        val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
+
+        v.updatePadding(0, insets.top, 0, insets.bottom)
+        WindowInsetsCompat.CONSUMED
+    }
 }

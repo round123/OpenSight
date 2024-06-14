@@ -61,4 +61,5 @@ dependencies {
     implementation(libs.material)
     implementation(libs.eventbus)
     implementation(libs.glide)
+    implementation(libs.androidx.lifecycle.common.jvm)
 }

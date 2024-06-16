@@ -30,7 +30,7 @@ abstract class BaseFragment<VB:ViewBinding> : Fragment() {
     /**
      * 日志输出标志
      */
-    protected val TAG: String = this.javaClass.simpleName
+    protected open val TAG: String = this.javaClass.simpleName
 
     protected lateinit var mBinding: VB
     protected abstract fun initViewBinding(): VB
@@ -39,12 +39,12 @@ abstract class BaseFragment<VB:ViewBinding> : Fragment() {
         super.onAttach(context)
         // 缓存当前依附的activity
         activity = requireActivity()
-        logD(TAG, "BaseFragment-->onAttach()")
+        logD(TAG, "$TAG-->onAttach()")
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        logD(TAG, "BaseFragment-->onCreate()")
+        logD(TAG, "$TAG-->onCreate()")
     }
 
     override fun onCreateView(
@@ -52,7 +52,7 @@ abstract class BaseFragment<VB:ViewBinding> : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        logD(TAG, "BaseFragment-->onCreateView()")
+        logD(TAG, "$TAG-->onCreateView()")
         mBinding = initViewBinding()
         mBinding.root.hideStatusBar()
         return mBinding.root
@@ -60,25 +60,36 @@ abstract class BaseFragment<VB:ViewBinding> : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        logD(TAG, "BaseFragment-->onViewCreated()")
+        logD(TAG, "$TAG-->onViewCreated()")
     }
 
     override fun onStart() {
         super.onStart()
-        logD(TAG, "BaseFragment-->onStart()")
+        logD(TAG, "$TAG-->onStart()")
     }
 
     override fun onResume() {
         super.onResume()
-        logD(TAG, "BaseFragment-->onResume()")
+        logD(TAG, "$TAG-->onResume()")
 
         //当Fragment在屏幕上可见并且没有加载过数据时调用
         if (!mHasLoadedData) {
             loadDataOnce()
-            logD(TAG, "BaseFragment-->loadDataOnce()")
+            logD(TAG, "$TAG-->loadDataOnce()")
             mHasLoadedData = true
         }
     }
+
+    override fun onPause() {
+        super.onPause()
+        logD(TAG, "$TAG-->onPause()")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        logD(TAG, "$TAG-->onDestroy()")
+    }
+
 
     /**
      * 页面首次可见时调用一次该方法，在这里可以请求网络数据等。

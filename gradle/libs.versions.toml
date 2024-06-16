@@ -1,7 +1,9 @@
 [versions]
 agp = "8.4.0"
+gson = "2.11.0"
 kotlin = "1.9.24"
 coreKtx = "1.13.1"
+kotlinxSerializationJsonVersion = "1.6.3"
 lifecycle_version = "2.8.1"
 junit = "4.13.2"
 junitVersion = "1.1.5"
@@ -9,30 +11,49 @@ fragment_version = "1.7.1"
 activity_version = "1.9.0"
 appcompat_version = "1.7.0"
 nav_version = "2.7.7"
+okhttpBomVersion = "4.12.0"
+okhttpVersion = "4.12.0"
+retrofitVersion = "2.11.0"
 room_version = "2.6.1"
 paging_version = "3.3.0"
 constraintlayoutVersion = "2.1.4"
 navigationFragmentVersion = "2.7.7"
+utilcodexVersion = "1.31.1"
 viewpager2Version = "1.1.0"
 flycoTabLayoutVersion = "3.0.0"
 materialVersion = "1.12.0"
 eventbusVersion = "3.3.1"
 glideVersion="4.16.0"
 lifecycleCommonJvmVersion = "2.8.2"
+mmkv = "1.3.0"
+firebaseCrashlyticsBuildtoolsVersion = "3.0.0"
+pagingRuntimeKtxVersion = "3.3.0"
 [libraries]
 #Android KTX
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofitVersion" }
+converter-kotlinx-serialization = { module = "com.squareup.retrofit2:converter-kotlinx-serialization", version.ref = "retrofitVersion" }
+converter-scalars = { module = "com.squareup.retrofit2:converter-scalars", version.ref = "retrofitVersion" }
 fragment-ktx = { group = "androidx.fragment", name = "fragment-ktx", version.ref = "fragment_version" }
 activity-ktx = { group = "androidx.activity", name = "activity-ktx", version.ref = "activity_version" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat_version" }
 #lifecycle
 androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycle_version" }
+google-gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
+kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationJsonVersion" }
 lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycle_version" }
 lifecycle-livedata-ktx = { group = "androidx.lifecycle", name = "lifecycle-livedata-ktx", version.ref = "lifecycle_version" }
 #nav
+logging-interceptor = { module = "com.squareup.okhttp3:logging-interceptor" }
 navigation-fragment-ktx = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "nav_version" }
 navigation-ui-ktx = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "nav_version" }
 #room
+okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttpVersion" }
+okhttp-bom = { module = "com.squareup.okhttp3:okhttp-bom", version.ref = "okhttpBomVersion" }
+okhttp3-logging-interceptor = { module = "com.squareup.okhttp3:logging-interceptor" }
+okhttp3-okhttp = { module = "com.squareup.okhttp3:okhttp" }
+retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofitVersion" }
+
 room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room_version" }
 room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room_version" }
 room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room_version" }
@@ -41,7 +62,7 @@ room-paging = { group = "androidx.room", name = "room-paging", version.ref = "ro
 paging-runtime = { group = "androidx.paging", name = "paging-runtime", version.ref = "paging_version" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
-
+mmkv = { group = "com.tencent", name = "mmkv", version.ref = "mmkv" }
 
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayoutVersion" }
 androidx-navigation-fragment = { group = "androidx.navigation", name = "navigation-fragment", version.ref = "navigationFragmentVersion" }
@@ -51,7 +72,12 @@ material = { group = "com.google.android.material", name = "material", version.r
 eventbus = { group = "org.greenrobot", name = "eventbus", version.ref = "eventbusVersion" }
 glide={group="com.github.bumptech.glide",name="glide",version.ref="glideVersion"}
 androidx-lifecycle-common-jvm = { group = "androidx.lifecycle", name = "lifecycle-common-jvm", version.ref = "lifecycleCommonJvmVersion" }
+firebase-crashlytics-buildtools = { group = "com.google.firebase", name = "firebase-crashlytics-buildtools", version.ref = "firebaseCrashlyticsBuildtoolsVersion" }
+squareup-okhttp = { module = "com.squareup.okhttp3:okhttp" }
+utilcodex = { module = "com.blankj:utilcodex", version.ref = "utilcodexVersion" }
+androidx-paging-runtime-ktx = { group = "androidx.paging", name = "paging-runtime-ktx", version.ref = "pagingRuntimeKtxVersion" }
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+
 

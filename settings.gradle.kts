@@ -1,5 +1,6 @@
 pluginManagement {
     repositories {
+        maven("https://maven.aliyun.com/repository/public/")
         google {
             content {
                 includeGroupByRegex("com\\.android.*")
@@ -21,4 +22,3 @@ dependencyResolutionManagement {
 
 rootProject.name = "Open Sight"
 include(":app")
-include(":libhome")

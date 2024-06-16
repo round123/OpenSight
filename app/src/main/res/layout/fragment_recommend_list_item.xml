@@ -7,70 +7,70 @@
     android:layout_gravity="center"
     android:focusable="true">
 
-    <com.wandoujia.eyepetizer.ui.view.EyepetizerSimpleDraweeView
-        android:id="@+id/cover"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintDimensionRatio="W,1:1"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/blur_image"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:actualImageScaleType="centerCrop" />
+<!--    <com.wandoujia.eyepetizer.ui.view.EyepetizerSimpleDraweeView-->
+<!--        android:id="@+id/cover"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="0dp"-->
+<!--        app:layout_constraintDimensionRatio="W,1:1"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintBottom_toTopOf="@+id/blur_image"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:actualImageScaleType="centerCrop" />-->
 
-    <View
-        android:id="@+id/mask"
-        android:background="@color/color_alpha50_black"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintTop_toTopOf="@id/cover"
-        app:layout_constraintBottom_toBottomOf="@id/cover"
-        app:layout_constraintStart_toStartOf="@id/cover"
-        app:layout_constraintEnd_toEndOf="@id/cover" />
+<!--    <View-->
+<!--        android:id="@+id/mask"-->
+<!--        android:background="@color/color_alpha50_black"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="0dp"-->
+<!--        app:layout_constraintTop_toTopOf="@id/cover"-->
+<!--        app:layout_constraintBottom_toBottomOf="@id/cover"-->
+<!--        app:layout_constraintStart_toStartOf="@id/cover"-->
+<!--        app:layout_constraintEnd_toEndOf="@id/cover" />-->
 
-    <com.wandoujia.eyepetizer.ui.view.font.CustomFontTextView
-        android:id="@+id/title"
-        style="@style/text_card_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="@id/cover"
-        app:layout_constraintBottom_toBottomOf="@id/cover"
-        app:layout_constraintStart_toStartOf="@id/cover"
-        app:layout_constraintEnd_toEndOf="@id/cover"
-        app:layout_constraintVertical_bias="0.3" />
+<!--    <com.wandoujia.eyepetizer.ui.view.font.CustomFontTextView-->
+<!--        android:id="@+id/title"-->
+<!--        style="@style/text_card_title"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:layout_constraintTop_toTopOf="@id/cover"-->
+<!--        app:layout_constraintBottom_toBottomOf="@id/cover"-->
+<!--        app:layout_constraintStart_toStartOf="@id/cover"-->
+<!--        app:layout_constraintEnd_toEndOf="@id/cover"-->
+<!--        app:layout_constraintVertical_bias="0.3" />-->
 
-    <com.wandoujia.eyepetizer.ui.view.font.CustomFontTextView
-        android:id="@+id/sub_title"
-        style="@style/text_card_content"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_mlarge"
-        app:layout_constraintTop_toBottomOf="@id/title"
-        app:layout_constraintStart_toStartOf="@id/cover"
-        app:layout_constraintEnd_toEndOf="@id/cover" />
+<!--    <com.wandoujia.eyepetizer.ui.view.font.CustomFontTextView-->
+<!--        android:id="@+id/sub_title"-->
+<!--        style="@style/text_card_content"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="@dimen/margin_mlarge"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/title"-->
+<!--        app:layout_constraintStart_toStartOf="@id/cover"-->
+<!--        app:layout_constraintEnd_toEndOf="@id/cover" />-->
 
-    <com.wandoujia.eyepetizer.ui.view.EyepetizerSimpleDraweeView
-        android:id="@+id/blur_image"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:scaleY="-1.0"
-        app:layout_constraintDimensionRatio="W,1:1"
-        app:layout_constraintTop_toBottomOf="@id/cover"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:actualImageScaleType="centerCrop" />
+<!--    <com.wandoujia.eyepetizer.ui.view.EyepetizerSimpleDraweeView-->
+<!--        android:id="@+id/blur_image"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="0dp"-->
+<!--        android:scaleY="-1.0"-->
+<!--        app:layout_constraintDimensionRatio="W,1:1"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/cover"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:actualImageScaleType="centerCrop" />-->
 
-    <com.wandoujia.eyepetizer.ui.view.font.CustomFontTextView
-        android:id="@+id/description"
-        style="@style/text_card_describe"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_margin="@dimen/recommend_item_card_description_margin"
-        android:lineSpacingMultiplier="1.2"
-        app:layout_constraintTop_toTopOf="@id/blur_image"
-        app:layout_constraintBottom_toBottomOf="@id/blur_image"
-        app:layout_constraintStart_toStartOf="@id/blur_image"
-        app:layout_constraintEnd_toEndOf="@id/blur_image" />
+<!--    <com.wandoujia.eyepetizer.ui.view.font.CustomFontTextView-->
+<!--        android:id="@+id/description"-->
+<!--        style="@style/text_card_describe"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="0dp"-->
+<!--        android:layout_margin="@dimen/recommend_item_card_description_margin"-->
+<!--        android:lineSpacingMultiplier="1.2"-->
+<!--        app:layout_constraintTop_toTopOf="@id/blur_image"-->
+<!--        app:layout_constraintBottom_toBottomOf="@id/blur_image"-->
+<!--        app:layout_constraintStart_toStartOf="@id/blur_image"-->
+<!--        app:layout_constraintEnd_toEndOf="@id/blur_image" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

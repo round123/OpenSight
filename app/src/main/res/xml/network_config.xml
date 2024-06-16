@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <base-config cleartextTrafficPermitted="true" />
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="true">eyepetizer.net</domain>
+        <domain includeSubdomains="true">thefair.net.cn</domain>
+        <domain includeSubdomains="true">kaiyanapp.com</domain>
+        <domain includeSubdomains="true">baidu.com</domain>
+        <domain includeSubdomains="true">qq.com</domain>
+        <domain includeSubdomains="true">aliyuncs.com</domain>
+        <domain includeSubdomains="true">qlogo.cn</domain>
+        <domain includeSubdomains="true">restapi.amap.com</domain>
+        <domain includeSubdomains="true">meiqia.com</domain>
+        <domain includeSubdomains="true">qiniup.com</domain>
+        <trust-anchors>
+            <certificates src="user" />
+            <certificates src="system" />
+        </trust-anchors>
+    </domain-config>
+</network-security-config>

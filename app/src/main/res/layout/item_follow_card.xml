@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="324dp">
+    <!-- cover:url
+                img_info:width height,scale-->
+
+    <RelativeLayout
+        android:id="@+id/v_video_container"
+        android:layout_width="0.0dip"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/v_cover"
+            android:layout_width="0.0dip"
+            android:layout_height="226dp"
+            android:layout_centerInParent="true"
+            android:scaleType="centerCrop"
+            android:visibility="visible" />
+
+        <ImageView
+            android:id="@+id/v_play_action"
+            android:layout_width="24.0dip"
+            android:layout_height="22.0dip"
+            android:layout_centerInParent="true"
+            android:src="@mipmap/icon_play_white_no_padding" />
+
+        <ImageView
+            android:id="@+id/v_jingxuan"
+            android:layout_width="54.0dip"
+            android:layout_height="54.0dip"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="10.0dip"
+            android:layout_marginRight="10.0dip"
+            android:src="@drawable/icon_jingxuan_white" />
+    </RelativeLayout>
+
+
+    <!--author :nick description -->
+    <ImageView
+        android:id="@+id/v_author_avatar"
+        android:layout_width="38.0dip"
+        android:layout_height="38.0dip"
+        android:layout_marginStart="20.0dip"
+        android:layout_marginTop="16.0dip"
+        android:scaleType="centerCrop"
+        app:layout_constraintLeft_toLeftOf="@id/v_video_container"
+        app:layout_constraintTop_toBottomOf="@id/v_video_container" />
+    <!--    metro_data:title-->
+    <TextView
+        android:id="@+id/v_title"
+        android:layout_width="0.0dip"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="14.0dip"
+        android:layout_marginTop="15.0dip"
+        android:layout_marginRight="10.0dip"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:textColor="@color/black"
+        android:textSize="16.0sp"
+        app:fontName="hsMedium"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toRightOf="@id/v_author_avatar"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/v_video_container" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="0.0dip"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6.0dip"
+        android:layout_marginEnd="10.0dip"
+        app:layout_constraintLeft_toLeftOf="@id/v_title"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/v_title">
+
+        <TextView
+            android:id="@+id/v_desc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:paddingTop="2.0dip"
+            android:paddingBottom="2.0dip"
+            android:textColor="@color/black"
+            android:textSize="12.0sp"
+            app:fontName="hsNormal"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/v_time_stamp"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="nick全球广告精选 +#tag:titile"/>
+
+
+        <TextView
+            android:id="@+id/v_time_stamp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12.0dip"
+            android:drawablePadding="3.0dip"
+            android:gravity="center"
+            android:paddingLeft="6.0dip"
+            android:paddingRight="6.0dip"
+            android:textColor="@color/black"
+            android:textSize="12.0sp"
+            android:text="5:28"
+            app:drawableLeftCompat="@mipmap/icon_play_black"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toRightOf="@id/v_desc"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

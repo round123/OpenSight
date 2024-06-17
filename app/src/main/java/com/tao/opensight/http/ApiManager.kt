@@ -2,25 +2,26 @@ package com.tao.opensight.http
 
 import android.os.Build
 import com.google.gson.GsonBuilder
-import com.tao.opensight.http.interceptor.LoggingInterceptor
+import com.tao.opensight.http.HttpsUtils.SSLTrustUtil
+import com.tao.opensight.http.interceptor.TFInterceptor
 import com.tao.opensight.util.deviceBrand
-import com.tao.opensight.util.getDeviceSerial
 import com.tao.opensight.util.getScreenResolution
-import kotlinx.serialization.json.Json
+import com.tao.opensight.util.getUdid
 import okhttp3.Cookie
 import okhttp3.CookieJar
 import okhttp3.HttpUrl
 import okhttp3.Interceptor
-import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.Response
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.converter.kotlinx.serialization.asConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
+import java.security.SecureRandom
 import java.util.Date
 import java.util.concurrent.TimeUnit
+import javax.net.ssl.SSLContext
+import javax.net.ssl.SSLSocketFactory
 
 
 object ApiManager {
@@ -38,6 +39,7 @@ object ApiManager {
             map[url.host] = cookies.toMutableList()
         }
     }
+
 
     val logging = HttpLoggingInterceptor().apply { setLevel(HttpLoggingInterceptor.Level.BODY) }
 
@@ -67,7 +69,7 @@ object ApiManager {
             val originalRequest = chain.request()
             val originalHttpUrl = originalRequest.url
             val url = originalHttpUrl.newBuilder().apply {
-                addQueryParameter("udid", getDeviceSerial())
+                addQueryParameter("udid", getUdid())
                 //针对开眼官方【首页推荐 】api 变动， 需要单独做处理。原因：附加 vc、vn 这两个字段后，请求接口无响应。
                 if (!originalHttpUrl.toString().contains("api/v5/index/tab/allRec")) {
                     addQueryParameter("vc", "6030012")
@@ -102,4 +104,30 @@ object ApiManager {
     fun <T> create(serviceClass: Class<T>): T = retrofit.create(serviceClass)
 
     val MAINPAGE_SERVICE = create(MainPageService::class.java)
+
+    const val TFEYE_BASE_URL ="http://api.eyepetizer.net/"
+    val tfEyeClient= buildTfEyeClient()
+    var client: Retrofit.Builder = Retrofit.Builder().baseUrl(TFEYE_BASE_URL).client(tfEyeClient)
 }
+
+fun buildTfEyeClient(): OkHttpClient {
+    val hostnameVerifier = OkHttpClient.Builder()
+        .addInterceptor(TFInterceptor())
+        .hostnameVerifier(SSLTrustUtil.hostnameVerifier)
+
+    var sSLSocketFactory: SSLSocketFactory? = null
+    try {
+        val sSLContext = SSLContext.getInstance("TLS")
+        sSLContext.init(null, arrayOf(SSLTrustUtil.trustManager), SecureRandom())
+        sSLSocketFactory = sSLContext.socketFactory
+    } catch (unused: Exception) {
+    }
+
+    return hostnameVerifier.sslSocketFactory(sSLSocketFactory!!, SSLTrustUtil.trustManager)
+        .connectTimeout(60000L, TimeUnit.MILLISECONDS)
+        .writeTimeout(60000L, TimeUnit.MILLISECONDS)
+        .readTimeout(60000L, TimeUnit.MILLISECONDS)
+        .build()
+}
+
+

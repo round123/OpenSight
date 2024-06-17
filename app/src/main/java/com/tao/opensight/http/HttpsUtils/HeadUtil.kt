@@ -1,10 +1,17 @@
-package com.tao.opensight.util
+package com.tao.opensight.http.HttpsUtils
 
 import MMKVDelegate
 import MMKVUtil
 import android.os.Build
 import android.util.Log
 import com.tao.opensight.ext.nullToEmpty
+import com.tao.opensight.http.interceptor.X_THEFAIR_APPID
+import com.tao.opensight.http.interceptor.X_THEFAIR_AUTH
+import com.tao.opensight.http.interceptor.X_THEFAIR_CID
+import com.tao.opensight.http.interceptor.X_THEFAIR_UA
+import com.tao.opensight.util.getScreenResolution
+import com.tao.opensight.util.getUdid
+import okhttp3.Cookie
 import java.util.Locale
 
 
@@ -16,7 +23,10 @@ object HeadUtil {
     const val REGION = "cn-bj"
     val LOCALE = Locale.getDefault().toString()
     const val NETWORK_TYPE = "UNKNOWN"
-    val DEVICES_ID by lazy { getDeviceSerial() }
+    val DEVICES_ID by lazy { getUdid() }
+
+
+
 
     private var screenResolution: String? = null
     private var UAString: String? = null
@@ -24,10 +34,10 @@ object HeadUtil {
     //todo:要实现登录功能需要修改CID，AUTH
     fun getHeaders(): Map<String, String> {
         val hashMap = HashMap<String, String>(8)
-        hashMap["X-THEFAIR-CID"] = thefairCid.nullToEmpty()
-        hashMap["X-THEFAIR-APPID"] = "ahpagrcrf2p7m6rg"
-        hashMap["X-THEFAIR-UA"] = thefairUa.nullToEmpty()
-        hashMap["X-THEFAIR-AUTH"] = thefairAuth.nullToEmpty()
+        hashMap[X_THEFAIR_CID] = thefairCid.nullToEmpty()
+        hashMap[X_THEFAIR_APPID] = "ahpagrcrf2p7m6rg"
+        hashMap[X_THEFAIR_UA] = thefairUa.nullToEmpty()
+        hashMap[X_THEFAIR_AUTH] = thefairAuth.nullToEmpty()
         return hashMap
     }
 
@@ -43,9 +53,10 @@ object HeadUtil {
         val additionalInfo = ";${getScreenResolution()}"
         "EYEPETIZER/$VERSION ($deviceInfo$REGION;$DEVICES_ID;$NETWORK_TYPE;$additionalInfo) native/1.0"
     }
-    val thefair_device_id : String? by MMKVDelegate("THEFAIR_DEVICE_ID", "")
+    var thefair_device_id : String? by MMKVDelegate("THEFAIR_DEVICE_ID", "")
     var refreshToken:String? by MMKVDelegate("refresh_token","")
     var tsDiff:Int by MMKVDelegate("server_ts_diff",0)
+    var wdj_auth:String by MMKVDelegate("WDJ_AUTH","")
     fun getTs(): Int {
         return tsDiff.plus(((System.currentTimeMillis() / 1000).toInt()))
     }

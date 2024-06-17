@@ -6,8 +6,10 @@ import android.content.Context
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
 import android.os.Build
-import android.provider.Settings
+import android.preference.PreferenceManager
+import android.telephony.TelephonyManager
 import android.text.TextUtils
+import com.blankj.utilcode.util.PhoneUtils
 import com.tao.opensight.App
 import com.tao.opensight.ext.logW
 import kotlinx.coroutines.CoroutineScope
@@ -16,7 +18,12 @@ import kotlinx.coroutines.launch
 import java.util.Locale
 import java.util.UUID
 
+
 private const val TAG = "GlobalUtil"
+
+const val VersionCode=7070010
+const val VersionName="7.7.10"
+const val Channel="opensource"
 /**
  * 获取设备的品牌，如果无法获取到，则返回Unknown。
  * @return 设备品牌，全部转换为小写格式。
@@ -53,41 +60,22 @@ fun getApplicationMetaData(key: String): String? {
     return applicationInfo.metaData.getString(key)
 }
 
-/**
- *
- *
- * @return 设备的序列号。 uuid
- */
-private var deviceSerial: String? = null
-@SuppressLint("HardwareIds")
-fun getDeviceSerial(): String {
-    if (deviceSerial == null) {
-        var deviceId: String? = null
-            try {
-                deviceId = Settings.Secure.getString(
-                    App.context.contentResolver,
-                    Settings.Secure.ANDROID_ID
-                )
-            } catch (e: Exception) {
-                logW(TAG, "get android_id with error", e)
-            }
-            if (!TextUtils.isEmpty(deviceId) && deviceId!!.length < 255) {
-                deviceSerial = deviceId
-                return deviceSerial.toString()
-            }
 
-        var uuid = MMKVUtil.decode("uuid", "")
-        if (!TextUtils.isEmpty(uuid)) {
-            deviceSerial = uuid
-            return deviceSerial.toString()
-        }
-         uuid = UUID.randomUUID().toString().replace("-", "").toUpperCase(Locale.getDefault())
-        CoroutineScope(Dispatchers.IO).launch { MMKVUtil.encode("uuid", uuid) }
-        deviceSerial = uuid
-        return deviceSerial.toString()
-    } else {
-        return deviceSerial.toString()
+// 使用注解忽略硬件ID的警告
+@SuppressLint("HardwareIds")
+fun getUdid(): String {
+    // 尝试从 MMKV 中获取已存储的 UUID
+    var uuid = MMKVUtil.decode("udid", "")
+    if (!TextUtils.isEmpty(uuid)) {
+        return uuid
     }
+    // 如果 MMKV 中没有 UUID，则生成一个新的 UUID，移除所有破折号并转换为大写
+    uuid = UUID.randomUUID().toString().replace("-", "").toUpperCase(Locale.getDefault())
+    // 异步存储新生成的 UUID 到 MMKV
+    CoroutineScope(Dispatchers.IO).launch {
+        MMKVUtil.encode("udid", uuid)
+    }
+    return uuid
 }
 /**
  *
@@ -98,8 +86,15 @@ fun getScreenResolution(): String {
     var screenResolution = MMKVUtil.decode("screenResolution","")
     if (screenResolution == "") {
         val metrics = App.context.resources.displayMetrics
-        MMKVUtil.encode("screenResolution","${metrics.widthPixels}*${metrics.heightPixels}")
-        screenResolution = "${metrics.widthPixels}*${metrics.heightPixels}"
+        MMKVUtil.encode("screenResolution","${metrics.widthPixels}X${metrics.heightPixels}")
+        screenResolution = "${metrics.widthPixels}X${metrics.heightPixels}"
     }
     return screenResolution
+}
+
+fun getImei(): String {
+    return "android_id"
+}
+fun getImsi():String{
+    return ""
 }

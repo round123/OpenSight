@@ -4,12 +4,7 @@ import MMKVDelegate
 import MMKVUtil
 import android.os.Build
 import android.util.Log
-import com.blankj.utilcode.util.LogUtils.a
 import com.tao.opensight.ext.nullToEmpty
-import okhttp3.Cookie
-import okhttp3.RequestBody
-import okio.Buffer
-import java.io.IOException
 import java.util.Locale
 
 
@@ -48,10 +43,13 @@ object HeadUtil {
         val additionalInfo = ";${getScreenResolution()}"
         "EYEPETIZER/$VERSION ($deviceInfo$REGION;$DEVICES_ID;$NETWORK_TYPE;$additionalInfo) native/1.0"
     }
+    val thefair_device_id : String? by MMKVDelegate("THEFAIR_DEVICE_ID", "")
     var refreshToken:String? by MMKVDelegate("refresh_token","")
-    var tsDiff:Int? by MMKVDelegate("server_ts_diff",0)
+    var tsDiff:Int by MMKVDelegate("server_ts_diff",0)
+    fun getTs(): Int {
+        return tsDiff.plus(((System.currentTimeMillis() / 1000).toInt()))
+    }
 
-    val responseCookies: HashSet<Cookie> = HashSet()
     private var c:Boolean?=null
 
     fun randomCookie(): Boolean? {

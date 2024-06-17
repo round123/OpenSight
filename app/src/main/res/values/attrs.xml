@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="CustomFontTextView">
-        <attr name="fontName" format="enum" >
+        <attr name="fontName">
             <enum name="hsMedium" value="0" />
             <enum name="hsNormal" value="1" />
             <enum name="hsRegular" value="2" />

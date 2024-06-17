@@ -5,19 +5,13 @@ import com.tao.opensight.ext.nullToEmpty
 import com.tao.opensight.http.ApiManager
 import com.tao.opensight.util.AESUtil
 import com.tao.opensight.util.AesException
+import com.tao.opensight.util.HeadUtil.getTs
 import com.tao.opensight.util.HeadUtil.refreshToken
 import com.tao.opensight.util.HeadUtil.thefairAuth
 import com.tao.opensight.util.HeadUtil.thefairCid
 import com.tao.opensight.util.HeadUtil.tsDiff
 import com.tao.opensight.util.getDeviceSerial
 import com.tao.opensight.util.getScreenResolution
-import kotlinx.serialization.Serializable
-import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.buildJsonObject
-import kotlinx.serialization.json.put
-import okhttp3.FormBody
-import okhttp3.Request
-import okhttp3.Response
 import org.json.JSONObject
 import java.io.IOException
 
@@ -29,16 +23,14 @@ object AuthTools {
 //        paramBuilder: FormBody.Builder,
 //        paramString: String,
 //    ): FormBody.Builder {
-//        val i = (System.currentTimeMillis() / 1000L).toInt()
-//
-//        val str1 =(tsDiff?.plus(i)).toString()
-//        val str2 = getSign(getSignString(paramString, str1))
+//        val ts= getTs()
+//        val sign = getSign(getSignString(paramString, str1))
 //        if ("refresh_token" == paramString) {
 //            paramBuilder.add("refresh_token", refreshToken.nullToEmpty())
 //        }
 //        return paramBuilder.add("grant_type", paramString)
-//            .add("sign", str2)
-//            .add("ts", str1)
+//            .add("sign", sign)
+//            .add("ts", ts)
 //            .add("device_info", getDeviceInfo())
 //    }
 //
@@ -68,38 +60,28 @@ object AuthTools {
 //    }
 //
 //    private fun getSignString(paramString1: String, paramString2: String): String {
-//        return "$paramString1|ahpagrcrf2p7m6rg|android|7.7.10||$paramString2"
+//        return "$paramString1|ahpagrcrf2p7m6rg|android|7.7.10|$thefair_device_id|$paramString2"
 //    }
 //
-//    @Serializable
-//    data class ApiResponse(
-//        val code: Int,
-//        val result: ResultData? = null
-//    )
-//
-//    @Serializable
-//    data class ResultData(
-//        val device_id: String? = null,
-//        val access_token: String? = null,
-//        val server_timestamp: Int? = null,
-//        val refresh_token: String? = null
-//    )
 //
 //    //处理请求，设置后续接口要的header
 //    @Synchronized
 //    fun handleResponse(paramString: String) {
 //        kotlin.runCatching {
-//            val apiResponse = Json.decodeFromString<ApiResponse>(paramString)
-//            if (apiResponse.code == 0) {
-//                apiResponse.result?.let { result ->
+//           val jsonObject = JSONObject(paramString)
+//            if (jsonObject.optInt("code") == 0) {
+//                val result = jsonObject.optJSONObject("result") ?: return
+//                result?.let { result ->
 //                    thefairCid = result.device_id ?: ""
+                //thefair_device_id= result.device_id ?: ""
+                    //TODO:持久化device_id，key:THEFAIR_DEVICE_ID
 //                    thefairAuth = result.access_token ?: ""
 //
 //                    result.refresh_token?.let {
 //                        if (it.isNotBlank()) refreshToken = it
 //                    }
 //
-//                    result.server_timestamp?.let {
+//                    result.server_timestamp.takeIf { it != 0 }?.let {
 //                        tsDiff = it - (System.currentTimeMillis() / 1000L).toInt()
 //                    }
 //                }
@@ -133,9 +115,12 @@ object AuthTools {
 //                .contains("system/auth/token")
 //        ) true else false
 //    fun handleTs(paramJSONObject: JSONObject) {
-//        val timestamp = paramJSONObject.optJSONObject("result")?.optLong("server_timestamp") ?: return
-//        if (timestamp != 0L) {
-//            tsDiff = (timestamp - (System.currentTimeMillis() / 1000)).toInt()
+//       val result = jsonObject.optJSONObject("result") ?: return
+//        val serverTimestamp = result.optInt("server_timestamp", 0)
+//          if (serverTimestamp != 0) {
+//         tsDiff = serverTimestamp - (System.currentTimeMillis() / 1000).toInt()
+//
+//          }
 //        }
 //    }
 }

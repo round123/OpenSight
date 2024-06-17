@@ -9,22 +9,22 @@ class CustomFontTextView @JvmOverloads constructor(
     defStyle: Int = 0
 ) : androidx.appcompat.widget.AppCompatTextView(context, attrs, defStyle) {
 
-//    init {
-//        if (!isInEditMode) {
-//            TypefaceManager.applyCustomFont(attrs, this)
-//        }
-//    }
-//
-//    fun setFontType(fontType: TypefaceManager.FontType) {
-//        if (!isInEditMode) {
-//            TypefaceManager.applyFontSettings(this, fontType, TypefaceManager.getOrCreateTypeface(fontType)!!)
-//        }
-//    }
-//
-//    fun setFontType(fontTypeName: String) {
-//        if (!isInEditMode) {
-//            val fontType = TypefaceManager.getFontTypeByName(fontTypeName)
-//            TypefaceManager.applyFontSettings(this, fontType, TypefaceManager.getOrCreateTypeface(fontType)!!)
-//        }
-//    }
+    init {
+        if (!isInEditMode) {
+            TypefaceManager.applyCustomFont(attrs, this)
+        }
+    }
+
+    fun setFontType(fontType: TypefaceManager.FontType) {
+        if (!isInEditMode) {
+            TypefaceManager.applyFontSettings(this, fontType, TypefaceManager.getOrCreateTypeface(fontType)!!)
+        }
+    }
+
+    fun setFontType(fontTypeName: String) {
+        if (!isInEditMode) {
+            val fontType = TypefaceManager.getFontTypeByName(fontTypeName)
+            TypefaceManager.applyFontSettings(this, fontType, TypefaceManager.getOrCreateTypeface(fontType)!!)
+        }
+    }
 }

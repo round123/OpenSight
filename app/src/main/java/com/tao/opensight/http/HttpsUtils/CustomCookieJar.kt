@@ -14,7 +14,7 @@ class CustomCookieJar : CookieJar {
 
     override fun loadForRequest(url: HttpUrl): MutableList<Cookie> {
         val cookies = cookieStore[url.host] ?: mutableListOf()
-        val fixedCookies = "ky_udid=${getUdid()};ky_auth=" // 首先生成固定的 Cookie
+        val fixedCookies = "${getUdid()};ky_auth=" // 首先生成固定的 Cookie
         var cookieValue = cookies.joinToString(separator = "; ") { "${it.name}=${it.value}" }
         cookieValue = if (cookieValue.isNotEmpty()) {
             "$fixedCookies; $cookieValue" // 将固定的 Cookie 放在前面，然后添加其他 Cookie
@@ -25,7 +25,7 @@ class CustomCookieJar : CookieJar {
             Cookie.Builder()
                 .domain(url.host)
                 .path("/")
-                .name("ky_auth") // 这里需要考虑是否每次都应该使用 "ky_auth" 作为 Cookie 名
+                .name("ky_udid")// 这里需要考虑是否每次都应该使用 "ky_auth" 作为 Cookie 名
                 .value(cookieValue)
                 .build()
         )

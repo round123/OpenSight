@@ -5,10 +5,6 @@ import MMKVUtil
 import android.os.Build
 import android.util.Log
 import com.tao.opensight.ext.nullToEmpty
-import com.tao.opensight.http.interceptor.X_THEFAIR_APPID
-import com.tao.opensight.http.interceptor.X_THEFAIR_AUTH
-import com.tao.opensight.http.interceptor.X_THEFAIR_CID
-import com.tao.opensight.http.interceptor.X_THEFAIR_UA
 import com.tao.opensight.util.getScreenResolution
 import com.tao.opensight.util.getUdid
 import okhttp3.Cookie
@@ -32,14 +28,14 @@ object HeadUtil {
     private var UAString: String? = null
 
     //todo:要实现登录功能需要修改CID，AUTH
-    fun getHeaders(): Map<String, String> {
-        val hashMap = HashMap<String, String>(8)
-        hashMap[X_THEFAIR_CID] = thefairCid.nullToEmpty()
-        hashMap[X_THEFAIR_APPID] = "ahpagrcrf2p7m6rg"
-        hashMap[X_THEFAIR_UA] = thefairUa.nullToEmpty()
-        hashMap[X_THEFAIR_AUTH] = thefairAuth.nullToEmpty()
-        return hashMap
-    }
+//    fun getHeaders(): Map<String, String> {
+//        val hashMap = HashMap<String, String>(8)
+//        hashMap[X_THEFAIR_CID] = thefairCid.nullToEmpty()
+//        hashMap[X_THEFAIR_APPID] = "ahpagrcrf2p7m6rg"
+//        hashMap[X_THEFAIR_UA] = thefairUa.nullToEmpty()
+//        hashMap[X_THEFAIR_AUTH] = thefairAuth.nullToEmpty()
+//        return hashMap
+//    }
 
     /**
      * 委托模式 设置值
@@ -49,9 +45,9 @@ object HeadUtil {
     val thefairUa
         get()= userAgent
     val userAgent: String by lazy {
-        val deviceInfo = "$MODEL;$ANDROID_VERSION;$VERSION_CODE;$LOCALE;android;$VERSION_CODE;$REGION;"
+        val deviceInfo = "$MODEL;android;13;zh_CN;android;7.7.10;cn-bj;"
         val additionalInfo = ";${getScreenResolution()}"
-        "EYEPETIZER/$VERSION ($deviceInfo$REGION;$DEVICES_ID;$NETWORK_TYPE;$additionalInfo) native/1.0"
+        "EYEPETIZER/$VERSION ($deviceInfo;xiaomi;;$NETWORK_TYPE;$additionalInfo) native/1.0"
     }
     var thefair_device_id : String? by MMKVDelegate("THEFAIR_DEVICE_ID", "")
     var refreshToken:String? by MMKVDelegate("refresh_token","")

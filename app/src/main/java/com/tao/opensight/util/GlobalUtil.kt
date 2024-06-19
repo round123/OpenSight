@@ -7,9 +7,7 @@ import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
 import android.os.Build
 import android.preference.PreferenceManager
-import android.telephony.TelephonyManager
 import android.text.TextUtils
-import com.blankj.utilcode.util.PhoneUtils
 import com.tao.opensight.App
 import com.tao.opensight.ext.logW
 import kotlinx.coroutines.CoroutineScope
@@ -17,6 +15,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.util.Locale
 import java.util.UUID
+import android.provider.Settings;
 
 
 private const val TAG = "GlobalUtil"
@@ -70,7 +69,7 @@ fun getUdid(): String {
         return uuid
     }
     // 如果 MMKV 中没有 UUID，则生成一个新的 UUID，移除所有破折号并转换为大写
-    uuid = UUID.randomUUID().toString().replace("-", "").toUpperCase(Locale.getDefault())
+    uuid = UUID.randomUUID().toString().replace("-", "").toLowerCase(Locale.getDefault())
     // 异步存储新生成的 UUID 到 MMKV
     CoroutineScope(Dispatchers.IO).launch {
         MMKVUtil.encode("udid", uuid)
@@ -96,5 +95,14 @@ fun getImei(): String {
     return "android_id"
 }
 fun getImsi():String{
-    return ""
+    return "0"
+}
+var sAndroidId:String?=null
+fun getAndroidID(context: Context): String {
+    val string = PreferenceManager.getDefaultSharedPreferences(context.applicationContext)
+        .getString("AGREEMENT_VERSION", "")
+    if (sAndroidId == null && !string!!.isEmpty()) {
+        sAndroidId = Settings.Secure.getString(context.contentResolver, "android_id")
+    }
+    return sAndroidId!!
 }

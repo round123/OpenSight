@@ -1,21 +1,14 @@
-package com.tao.opensight.util
-
-
-import android.os.Build
-import androidx.annotation.RequiresApi
-import java.nio.charset.StandardCharsets
-import java.util.*
+import android.util.Base64
 import javax.crypto.Cipher
 import javax.crypto.spec.IvParameterSpec
 import javax.crypto.spec.SecretKeySpec
 
-@RequiresApi(Build.VERSION_CODES.O)
 class AESUtil(base64Key: String) {
     private val aesKey: ByteArray
 
     init {
         if (base64Key.length == 43) {
-            aesKey = Base64.getDecoder().decode("$base64Key=")
+            aesKey = Base64.decode("$base64Key=", Base64.DEFAULT)
         } else {
             throw AesException(AesException.IllegalAesKey)
         }
@@ -25,9 +18,9 @@ class AESUtil(base64Key: String) {
     fun decrypt(encryptedData: String): String {
         try {
             val cipher = initCipher(Cipher.DECRYPT_MODE)
-            val decodedData = Base64.getDecoder().decode(encryptedData)
+            val decodedData = Base64.decode(encryptedData, Base64.DEFAULT)
             val decryptedData = cipher.doFinal(decodedData)
-            return String(decryptedData, StandardCharsets.UTF_8).trim()
+            return String(decryptedData, Charsets.UTF_8).trim()
         } catch (e: Exception) {
             throw AesException(AesException.EncryptAESError)
         }
@@ -37,9 +30,9 @@ class AESUtil(base64Key: String) {
     fun encrypt(plainText: String): String {
         try {
             val cipher = initCipher(Cipher.ENCRYPT_MODE)
-            val paddedData = pad(plainText.toByteArray(StandardCharsets.UTF_8))
+            val paddedData = pad(plainText.toByteArray(Charsets.UTF_8))
             val encryptedData = cipher.doFinal(paddedData)
-            return Base64.getEncoder().encodeToString(encryptedData)
+            return Base64.encodeToString(encryptedData, Base64.NO_WRAP)
         } catch (e: Exception) {
             throw AesException(AesException.EncryptAESError)
         }
@@ -55,8 +48,8 @@ class AESUtil(base64Key: String) {
     private fun pad(data: ByteArray): ByteArray {
         val paddingLength = BLOCK_SIZE - (data.size % BLOCK_SIZE)
         val paddingValue = (paddingLength and 0xFF).toByte()
-        return Arrays.copyOf(data, data.size + paddingLength).also {
-            it.fill(paddingValue, data.size, it.size)
+        return ByteArray(data.size + paddingLength) { index ->
+            if (index < data.size) data[index] else paddingValue
         }
     }
 

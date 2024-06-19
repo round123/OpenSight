@@ -2,8 +2,8 @@ package com.tao.opensight.http
 
 import android.os.Build
 import com.google.gson.GsonBuilder
+import com.tao.opensight.http.HttpsUtils.CustomCookieJar
 import com.tao.opensight.http.HttpsUtils.SSLTrustUtil
-import com.tao.opensight.http.interceptor.TFInterceptor
 import com.tao.opensight.util.deviceBrand
 import com.tao.opensight.util.getScreenResolution
 import com.tao.opensight.util.getUdid
@@ -26,7 +26,7 @@ import javax.net.ssl.SSLSocketFactory
 
 object ApiManager {
 
-    const val BASE_URL = "http://baobab.kaiyanapp.com/"
+    private const val BASE_URL = "http://baobab.kaiyanapp.com/"
 
     private val cookie = object : CookieJar {
         private val map = HashMap<String, MutableList<Cookie>>()
@@ -41,9 +41,10 @@ object ApiManager {
     }
 
 
-    val logging = HttpLoggingInterceptor().apply { setLevel(HttpLoggingInterceptor.Level.BODY) }
+    private val logging =
+        HttpLoggingInterceptor().apply { setLevel(HttpLoggingInterceptor.Level.BODY) }
 
-    val httpClient = OkHttpClient.Builder().connectTimeout(60000L, TimeUnit.MILLISECONDS)
+    private val httpClient = OkHttpClient.Builder().connectTimeout(60000L, TimeUnit.MILLISECONDS)
         .writeTimeout(60000L, TimeUnit.MILLISECONDS)
         .readTimeout(60000L, TimeUnit.MILLISECONDS)
         .cookieJar(cookie)
@@ -68,18 +69,21 @@ object ApiManager {
         override fun intercept(chain: Interceptor.Chain): Response {
             val originalRequest = chain.request()
             val originalHttpUrl = originalRequest.url
+
             val url = originalHttpUrl.newBuilder().apply {
-                addQueryParameter("udid", getUdid())
-                //针对开眼官方【首页推荐 】api 变动， 需要单独做处理。原因：附加 vc、vn 这两个字段后，请求接口无响应。
-                if (!originalHttpUrl.toString().contains("api/v5/index/tab/allRec")) {
-                    addQueryParameter("vc", "6030012")
-                    addQueryParameter("vn", "6.3.1")
+                if (!originalHttpUrl.toString().contains("api/v3/messages")) {
+                    addQueryParameter("udid", getUdid())
+                    //针对开眼官方【首页推荐 】api 变动， 需要单独做处理。原因：附加 vc、vn 这两个字段后，请求接口无响应。
+                    if (!originalHttpUrl.toString().contains("api/v5/index/tab/allRec")) {
+                        addQueryParameter("vc", "6030012")
+                        addQueryParameter("vn", "6.3.1")
+                    }
+                    addQueryParameter("size", getScreenResolution())
+                    addQueryParameter("deviceModel", Build.MODEL)
+                    addQueryParameter("first_channel", deviceBrand)
+                    addQueryParameter("last_channel", deviceBrand)
+                    addQueryParameter("system_version_code", "${Build.VERSION.SDK_INT}")
                 }
-                addQueryParameter("size", getScreenResolution())
-                addQueryParameter("deviceModel", Build.MODEL)
-                addQueryParameter("first_channel", deviceBrand)
-                addQueryParameter("last_channel", deviceBrand)
-                addQueryParameter("system_version_code", "${Build.VERSION.SDK_INT}")
             }.build()
             val request = originalRequest.newBuilder().url(url).build()
             return chain.proceed(request)
@@ -103,16 +107,17 @@ object ApiManager {
 
     fun <T> create(serviceClass: Class<T>): T = retrofit.create(serviceClass)
 
-    val MAINPAGE_SERVICE = create(MainPageService::class.java)
+    inline fun <reified T> create() = create(T::class.java)
 
-    const val TFEYE_BASE_URL ="http://api.eyepetizer.net/"
-    val tfEyeClient= buildTfEyeClient()
-    var client: Retrofit.Builder = Retrofit.Builder().baseUrl(TFEYE_BASE_URL).client(tfEyeClient)
+    var mainPageService = create(MainPageApi::class.java)
+        private set
+
 }
 
 fun buildTfEyeClient(): OkHttpClient {
     val hostnameVerifier = OkHttpClient.Builder()
-        .addInterceptor(TFInterceptor())
+        //.addInterceptor(ApiManager.logging)
+        //.addInterceptor(TFInterceptor())
         .hostnameVerifier(SSLTrustUtil.hostnameVerifier)
 
     var sSLSocketFactory: SSLSocketFactory? = null
@@ -127,6 +132,7 @@ fun buildTfEyeClient(): OkHttpClient {
         .connectTimeout(60000L, TimeUnit.MILLISECONDS)
         .writeTimeout(60000L, TimeUnit.MILLISECONDS)
         .readTimeout(60000L, TimeUnit.MILLISECONDS)
+        .cookieJar(CustomCookieJar())
         .build()
 }
 

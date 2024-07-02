@@ -15,4 +15,4 @@ class EmptyViewHolder(view: View) : RecyclerView.ViewHolder(view)
 
 class FollowCardViewHolder(val mBinding : ItemFollowCardBinding) : RecyclerView.ViewHolder(mBinding.root)
 
-class TextCardHeader5ViewHolder5(val mBinding : ItemTextCardHeader5Binding) : RecyclerView.ViewHolder(mBinding.root)
+class TextCardHeader5ViewHolder(val mBinding : ItemTextCardHeader5Binding) : RecyclerView.ViewHolder(mBinding.root)

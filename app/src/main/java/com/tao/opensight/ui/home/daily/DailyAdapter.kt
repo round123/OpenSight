@@ -3,27 +3,35 @@ package com.tao.opensight.ui.home.daily
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import com.tao.opensight.databinding.ItemTextCardHeader5Binding
+import androidx.recyclerview.widget.RecyclerView
+import com.tao.opensight.ext.load
 import com.tao.opensight.model.Daily
 import com.tao.opensight.ui.common.FollowCardViewHolder
+import com.tao.opensight.ui.common.RecyclerViewHelper
 import com.tao.opensight.ui.common.TextCardHeader5ViewHolder
-import com.tao.opensight.ui.common.ViewHolder
+
 import com.tao.opensight.ui.common.ViewHolderFactory
 
-class DailyAdapter() : PagingDataAdapter<Daily.Item, ViewHolder<*>>(DIFF_CALLBACK) {
+class DailyAdapter() : PagingDataAdapter<Daily.Item, RecyclerView.ViewHolder>(DIFF_CALLBACK) {
 
 
-    override fun onBindViewHolder(holder: ViewHolder<*>, position: Int) {
-        val item=getItem(position)
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        val item = getItem(position)!!
         when (holder) {
-            is FollowCardViewHolder -> holder.bind(item as Daily.Item)
-            is TextCardHeader5ViewHolder ->holder.bind(item as Daily.Item)
+            is FollowCardViewHolder -> holder.mBinding.apply {
+                vCover.load(item.data.content.data.cover.feed)
+                vAuthorAvatar.load(item.data.header.icon ?: "")
+            }
+            is TextCardHeader5ViewHolder -> holder.mBinding
         }
     }
 
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder<*> =
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
         ViewHolderFactory.create(parent, viewType)
+
+    override fun getItemViewType(position: Int) =
+        RecyclerViewHelper.getItemViewType(getItem(position)!!)
 
     companion object {
 

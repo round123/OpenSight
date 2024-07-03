@@ -1,5 +1,8 @@
 package com.tao.opensight.model
 
+import com.tao.opensight.ext.conversionVideoDuration
+import com.tao.opensight.ui.common.RecyclerViewHelper
+
 
 /**
  * 首页-日报列表，响应实体类。
@@ -7,9 +10,33 @@ package com.tao.opensight.model
  * @author vipyinzhiwei
  * @since  2020/5/9
  */
-data class Daily(val itemList: List<Item>, val count: Int, val total: Int, val nextPageUrl: String?, val adExist: Boolean) : Model() {
+data class Daily(
+    val itemList: List<Item>,
+    val count: Int,
+    val total: Int,
+    val nextPageUrl: String?,
+    val adExist: Boolean
+) : Model() {
 
-    data class Item(val type: String,val `data`: Data,  val tag: Any?, val id: Int = 0, val adIndex: Int)
+    data class Item(
+        val type: String,
+        val `data`: Data,
+        val tag: Any?,
+        val id: Int = 0,
+        val adIndex: Int
+    ) : Model(), DailyItemField {
+        override fun getItemViewTpye(): Int =
+            RecyclerViewHelper.getItemViewType(this)
+
+        override fun getCoverFeed(): String = data.content.data.cover.feed
+        override fun getAuthorAvatar(): String? = data.header.icon
+        override fun getVideoDuration(): String =
+            data.content.data.duration.conversionVideoDuration()
+
+        override fun getDesc(): String = data.header.description
+        override fun getTitle(): String = data.header.title
+
+    }
 
     data class Data(
         val actionUrl: String?,
@@ -27,7 +54,7 @@ data class Daily(val itemList: List<Item>, val count: Int, val total: Int, val n
         val type: String,
         val image: String,
         val label: Label?
-    )
+    ) : Model()
 
     data class Header(
         val actionUrl: String?,
@@ -46,5 +73,6 @@ data class Daily(val itemList: List<Item>, val count: Int, val total: Int, val n
         val textAlign: String,
         val time: Long,
         val title: String
-    )
+    ) : Model()
+
 }

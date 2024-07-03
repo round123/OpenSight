@@ -7,3 +7,13 @@ package com.tao.opensight.model
  * @since  2020/5/10
  */
 abstract class Model
+
+
+interface DailyItemField {
+    abstract fun getItemViewTpye() :Int
+    abstract fun getCoverFeed(): String
+    abstract fun getAuthorAvatar(): String?
+    abstract fun getVideoDuration(): String
+    abstract fun getDesc(): String
+    abstract fun getTitle(): String
+}

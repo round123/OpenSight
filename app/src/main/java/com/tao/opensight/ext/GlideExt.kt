@@ -16,6 +16,7 @@ fun ImageView.loadIcon(resourceId: Int) {
         .placeholder(R.drawable.white_background)
         .into(this)
 }
+
 /**
  * Glide加载图片，可以指定圆角弧度。
  *
@@ -39,20 +40,19 @@ fun View.load(url: String, roundDp: Float = 0f) {
 }
 
 fun View.loadImage(url: String, circleCrop: Boolean = false) {
-    (this as? ImageView)?.let {
-            imageView ->
+    (this as? ImageView)?.let { imageView ->
         val requestOptions = if (circleCrop) {
-        RequestOptions().transform(CircleCrop()).placeholder(R.drawable.white_background)
-    }
-    
-    } else {
-        RequestOptions().placeholder(R.drawable.placeholder)
-    }
+            RequestOptions().transform(CircleCrop()).placeholder(R.drawable.white_background)
+        } else {
+            RequestOptions().placeholder(R.drawable.placeholder)
+        }
 
-    Glide.with(this.context)
-        .load(url)
-        .apply(requestOptions)
-        .into(this)
+
+        Glide.with(this.context)
+            .load(url)
+            .apply(requestOptions)
+            .into(this)
+    }
 }
 
 /**

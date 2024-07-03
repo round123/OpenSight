@@ -79,5 +79,6 @@ dependencies {
     implementation (libs.utilcodex)
     implementation (libs.converter.scalars)
     implementation(libs.androidx.paging.runtime.ktx)
-
+    implementation (libs.multitype)
+    implementation(libs.paging.runtime)
 }

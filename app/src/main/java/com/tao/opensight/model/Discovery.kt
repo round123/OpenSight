@@ -2,7 +2,7 @@ package com.tao.opensight.model
 
 data class Discovery(val itemList: List<Item>, val count: Int, val total: Int, val nextPageUrl: String?, val adExist: Boolean) : Model() {
 
-    data class Item(val `data`: Data, val type: String, val tag: Any?, val id: Int = 0, val adIndex: Int)
+    data class Item(val `data`: Data, val type: String, val tag: Any?, val id: Int = 0, val adIndex: Int): Model()
 
     data class Data(
         val actionUrl: String?,
@@ -76,7 +76,7 @@ data class Discovery(val itemList: List<Item>, val count: Int, val total: Int, v
         val webAdTrack: Any,
         val webUrl: WebUrl,
         val detail: AutoPlayVideoAdDetail?
-    )
+    ):Model()
 
     data class Header(
         val actionUrl: String?,

@@ -10,6 +10,8 @@ class DailyFragment:BaseFragment<FragmentDailyBinding>() {
 
     override val TAG = this::class.java.simpleName
 
+
+
     override fun initViewBinding(): FragmentDailyBinding {
         return FragmentDailyBinding.inflate(layoutInflater)
     }

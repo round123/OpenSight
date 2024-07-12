@@ -25,7 +25,7 @@ class DailyAdapter() : PagingDataAdapter<Daily.Item, RecyclerView.ViewHolder>(DI
         RecyclerViewHelper.getItemViewType(getItem(position)!!)
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val item = getItem(position)!!
+        val item = getItem(position) ?: return
         when (holder) {
             is FollowCardViewHolder -> holder.mBinding.apply {
                 vCover.load(item.getCoverFeed())
@@ -43,7 +43,7 @@ class DailyAdapter() : PagingDataAdapter<Daily.Item, RecyclerView.ViewHolder>(DI
             }
 
             is TextCardHeader5ViewHolder -> holder.mBinding.apply {
-                vHeaderTitle.text = item.getTitle()
+                vHeaderTitle.text = item.getTextCardText()
             }
         }
     }

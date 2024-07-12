@@ -1,5 +1,6 @@
 package com.tao.opensight.ext
 
+import android.content.res.Resources
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -46,4 +47,9 @@ fun Int.conversionVideoDuration(): String {
             "${days}d $hours:$minutes:$seconds"
         }
     }.padStart(2, '0')  // 确保格式化输出至少两位数
+}
+
+fun  Int.dp2px() : Int {
+    val scale = Resources.getSystem().displayMetrics.density
+    return (this * scale + 0.5f).toInt()
 }

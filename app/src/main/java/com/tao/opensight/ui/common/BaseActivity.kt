@@ -16,19 +16,11 @@ import com.tao.opensight.ext.logD
 abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity() {
     protected lateinit var mBinding: VB
     protected abstract fun initViewBinding(): VB
-    protected open fun onOutput() {}
-    protected open fun onInput() {}
-
-    /**
-     * 判断当前Activity是否在前台。
-     */
-    protected var isActive: Boolean = false
 
     /**
      * 日志输出标志
      */
     protected val TAG: String = this.javaClass.simpleName
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,8 +28,6 @@ abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity() {
         mBinding = initViewBinding()
         setContentView(mBinding.root)
         //hideStatusBar(mBinding.root)
-        onInput()
-        onOutput()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -68,13 +58,11 @@ abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         logD(TAG, "BaseActivity-->onResume()")
-        isActive = true
     }
 
     override fun onPause() {
         super.onPause()
         logD(TAG, "BaseActivity-->onPause()")
-        isActive = false
     }
 
     override fun onStop() {

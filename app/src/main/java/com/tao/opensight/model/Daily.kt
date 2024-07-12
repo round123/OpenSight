@@ -35,6 +35,7 @@ data class Daily(
 
         override fun getDesc(): String = data.header.description
         override fun getTitle(): String = data.header.title
+        override fun getTextCardText(): String =data.text
 
     }
 

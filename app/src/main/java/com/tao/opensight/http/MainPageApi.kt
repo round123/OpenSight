@@ -25,8 +25,8 @@ interface MainPageApi {
     /**
      * 首页-日报列表
      */
-    @GET("api/v5/index/tab/feed")
-    suspend fun getDaily(): Daily
+    @GET
+    suspend fun getDaily(@Url url: String): Daily
 
     /**
      * 社区-推荐列表
@@ -51,5 +51,38 @@ interface MainPageApi {
      */
     @GET("api/v3/queries/hot")
     suspend fun getHotSearch(): List<String>
+
+    companion object {
+
+        /**
+         * 首页-发现列表
+         */
+        const val DISCOVERY_URL = "${ApiManager.BASE_URL}api/v7/index/tab/discovery"
+
+        /**
+         * 首页-推荐列表
+         */
+        const val HOMEPAGE_RECOMMEND_URL = "${ApiManager.BASE_URL}api/v5/index/tab/allRec"
+
+        /**
+         * 首页-日报列表
+         */
+        const val DAILY_URL = "${ApiManager.BASE_URL}api/v5/index/tab/feed"
+
+        /**
+         * 社区-推荐列表
+         */
+        const val COMMUNITY_RECOMMEND_URL = "${ApiManager.BASE_URL}api/v7/community/tab/rec"
+
+        /**
+         * 社区-关注列表
+         */
+        const val FOLLOW_URL = "${ApiManager.BASE_URL}api/v6/community/tab/follow"
+
+        /**
+         * 通知-推送列表
+         */
+        const val PUSHMESSAGE_URL = "${ApiManager.BASE_URL}api/v3/messages"
+    }
 
 }

@@ -19,13 +19,6 @@ class MainActivity : BaseActivity<LayoutMainactivityBinding>() {
         super.onCreate(savedInstanceState)
     }
 
-    override fun onInput() {
-    }
-
-    override fun onOutput() {
-
-    }
-
     override fun onResume() {
         super.onResume()
         initBottomNav()

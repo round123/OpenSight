@@ -61,6 +61,12 @@ abstract class BaseFragment<VB:ViewBinding> : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         logD(TAG, "$TAG-->onViewCreated()")
+        //当Fragment在屏幕上可见并且没有加载过数据时调用
+        if (!mHasLoadedData) {
+            loadDataOnce()
+            logD(TAG, "$TAG-->loadDataOnce()")
+            mHasLoadedData = true
+        }
     }
 
     override fun onStart() {
@@ -72,12 +78,6 @@ abstract class BaseFragment<VB:ViewBinding> : Fragment() {
         super.onResume()
         logD(TAG, "$TAG-->onResume()")
 
-        //当Fragment在屏幕上可见并且没有加载过数据时调用
-        if (!mHasLoadedData) {
-            loadDataOnce()
-            logD(TAG, "$TAG-->loadDataOnce()")
-            mHasLoadedData = true
-        }
     }
 
     override fun onPause() {

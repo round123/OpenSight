@@ -16,4 +16,5 @@ interface DailyItemField {
     abstract fun getVideoDuration(): String
     abstract fun getDesc(): String
     abstract fun getTitle(): String
+    abstract fun getTextCardText():String
 }

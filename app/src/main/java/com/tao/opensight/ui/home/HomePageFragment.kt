@@ -6,6 +6,7 @@ import android.util.Log
 
 import android.view.View
 import android.widget.ImageView
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 
 
@@ -18,20 +19,20 @@ import com.tao.opensight.databinding.FragmentHomeBinding
 
 
 import com.tao.opensight.ui.common.BaseFragment
-
+import com.tao.opensight.ui.home.daily.DailyFragment
 
 
 class HomePageFragment : BaseFragment<FragmentHomeBinding>() {
 
     override val TAG = this.javaClass.simpleName
-
-    private lateinit var logo: ImageView
-
-    private lateinit var notice: ImageView
-
-    private lateinit var viewPager2: ViewPager2
-
-    private lateinit var tabLayout: CommonTabLayout
+    private val adapter: HomePageVPAdapter by lazy {
+        HomePageVPAdapter(requireActivity()).apply {
+            addFragments(
+                createFragments
+            )
+        }
+    }
+    private val createFragments: Array<Fragment> = arrayOf(DailyFragment.newInstance())
     override fun initViewBinding(): FragmentHomeBinding {
         return FragmentHomeBinding.inflate(layoutInflater)
     }
@@ -39,10 +40,10 @@ class HomePageFragment : BaseFragment<FragmentHomeBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        mBinding.viewpager.adapter=adapter
     }
 
     override fun loadDataOnce() {
-
     }
 
 }

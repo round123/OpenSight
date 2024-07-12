@@ -41,7 +41,7 @@ fun View.hideStatusBar() {
     ViewCompat.setOnApplyWindowInsetsListener(this) { v: View, windowInsets: WindowInsetsCompat ->
         val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
 
-        v.updatePadding(0, insets.top, 0, insets.bottom)
+        v.updatePadding(0, insets.top-5.dp2px(), 0, insets.bottom)
         WindowInsetsCompat.CONSUMED
     }
 }

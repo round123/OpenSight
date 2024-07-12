@@ -26,7 +26,8 @@ import javax.net.ssl.SSLSocketFactory
 
 object ApiManager {
 
-    private const val BASE_URL = "http://baobab.kaiyanapp.com/"
+    const val BASE_URL = "http://baobab.kaiyanapp.com/"
+
 
     private val cookie = object : CookieJar {
         private val map = HashMap<String, MutableList<Cookie>>()
@@ -109,31 +110,6 @@ object ApiManager {
 
     inline fun <reified T> create() = create(T::class.java)
 
-    var mainPageService = create(MainPageApi::class.java)
-        private set
-
-}
-
-fun buildTfEyeClient(): OkHttpClient {
-    val hostnameVerifier = OkHttpClient.Builder()
-        //.addInterceptor(ApiManager.logging)
-        //.addInterceptor(TFInterceptor())
-        .hostnameVerifier(SSLTrustUtil.hostnameVerifier)
-
-    var sSLSocketFactory: SSLSocketFactory? = null
-    try {
-        val sSLContext = SSLContext.getInstance("TLS")
-        sSLContext.init(null, arrayOf(SSLTrustUtil.trustManager), SecureRandom())
-        sSLSocketFactory = sSLContext.socketFactory
-    } catch (unused: Exception) {
-    }
-
-    return hostnameVerifier.sslSocketFactory(sSLSocketFactory!!, SSLTrustUtil.trustManager)
-        .connectTimeout(60000L, TimeUnit.MILLISECONDS)
-        .writeTimeout(60000L, TimeUnit.MILLISECONDS)
-        .readTimeout(60000L, TimeUnit.MILLISECONDS)
-        .cookieJar(CustomCookieJar())
-        .build()
 }
 
 
